@@ -31,8 +31,7 @@ logistics bottlenecks, and high-value customer segments worth targeting.
 ---
 
 ## 📊 Dashboard Preview
-![Dashboard Preview](olist-ecommerce-analysis
-/page1_executive_summary.png)
+![Dashboard Preview](https://github.com/TanishaRamteke/olist-ecommerce-analysis/blob/main/page1_executive_summary.png)
 
 ---
 
