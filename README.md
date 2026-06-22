@@ -8,6 +8,11 @@
 
 ---
 
+## 🛠️ Skills Demonstrated
+`Python` `Pandas` `Data Cleaning` `Exploratory Data Analysis` `PostgreSQL` `SQL` `Power BI` `DAX` `Data Visualization` `RFM Segmentation` `Customer Analytics` `Business Analysis`
+
+---
+
 ## 📌 Problem Statement
 Olist is a Brazilian e-commerce platform connecting sellers to customers.
 Despite strong revenue growth, **97% of customers never placed a second order.**
@@ -31,7 +36,15 @@ logistics bottlenecks, and high-value customer segments worth targeting.
 ---
 
 ## 📊 Dashboard Preview
-![Dashboard Preview](https://github.com/TanishaRamteke/olist-ecommerce-analysis/blob/main/page1_executive_summary.png)
+
+### Executive Summary
+![Executive Summary](page1_executive_summary.png)
+
+### Customer Segments
+![Customer Segments](page2_customer_segments.png)
+
+### Operations & Delivery
+![Operations](page3_operations_delivery.png)
 
 ---
 
@@ -46,37 +59,20 @@ logistics bottlenecks, and high-value customer segments worth targeting.
 ---
 
 ## 📁 Project Structure
+```
 olist-ecommerce-analysis/
-
-├── data/
-
-│   ├── raw/          ← 9 original Olist CSV files (not uploaded)
-
-│   └── cleaned/      ← processed master dataset
-
 ├── notebooks/
-
 │   ├── 01_data_merge_cleaning.ipynb
-
 │   ├── 02_eda_insights.ipynb
-
 │   ├── 03_rfm_segmentation.ipynb
-
 │   └── 04_load_to_postgresql.ipynb
-
 ├── sql/
-
 │   └── analysis_queries.sql
-
-├── powerbi/
-
-│   └── olist_dashboard.pbix
-
 ├── assets/
-
-│   └── dashboard_preview.png
-
+│   └── dashboard screenshots
 └── README.md
+```
+
 ---
 
 ## 📋 Methodology
@@ -102,18 +98,43 @@ Built RFM model to segment 93,357 customers into 5 groups:
 | Lost | 17,560 | R$160 | 394 days |
 
 ### 4️⃣ SQL Analysis (PostgreSQL)
-Wrote 8 KPI queries covering:
-- Month-over-month revenue growth
-- Repeat purchase rate (3%)
-- Late delivery impact on review scores
-- Revenue by customer segment
-- Top states by revenue and delivery performance
+Wrote 8 KPI queries covering MoM revenue growth, repeat purchase rate, late delivery impact, and segment revenue breakdown.
+
+**Example query — Month over Month Revenue:**
+```sql
+SELECT
+    DATE_TRUNC('month', order_purchase_timestamp) AS month,
+    ROUND(SUM(payment_value)::numeric, 2) AS revenue,
+    COUNT(DISTINCT order_id) AS total_orders
+FROM orders
+GROUP BY month
+ORDER BY month;
+```
+
+**Example query — Late Delivery Impact:**
+```sql
+SELECT
+    late_delivery,
+    COUNT(*) AS orders,
+    ROUND(AVG(review_score)::numeric, 2) AS avg_review
+FROM orders
+GROUP BY late_delivery;
+```
 
 ### 5️⃣ Power BI Dashboard (4 pages)
 - **Main Dashboard** — Navigation hub with buttons
 - **Executive Summary** — Revenue KPIs, trends, top categories
 - **Customer Segments** — RFM analysis, retention metrics
 - **Operations & Delivery** — Late delivery analysis, state performance
+
+---
+
+## ⚡ Challenges Faced
+- **Merging 9 relational datasets** — handled using sequential pandas merges on order_id and customer_id keys
+- **Handling missing values** — dropped nulls in payment_value, imputed review scores
+- **Creating RFM scores** — used pandas qcut for quartile-based scoring with rank() to handle ties
+- **Boolean column in Power BI** — late_delivery True/False required custom column transformation
+- **Designing Power BI relationships** — connected olist_master and rfm_segments tables correctly
 
 ---
 
