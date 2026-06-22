@@ -31,7 +31,7 @@ logistics bottlenecks, and high-value customer segments worth targeting.
 ---
 
 ## 📊 Dashboard Preview
-page1_executive_summary.png
+![Dashboard Preview](page1_executive_summary.png)
 
 ---
 
